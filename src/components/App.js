@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Auth from "./Auth";
+import UserProfile from "./UserProfile";
 
 class App extends React.Component {
   renderAuth = () => {
@@ -9,7 +10,15 @@ class App extends React.Component {
   };
 
   render() {
-    return <div className="ui container">{this.renderAuth()}</div>;
+    if (!this.props.isSignedIn) {
+      return <div className="ui container">{this.renderAuth()}</div>;
+    } else if (this.props.isSignedIn) {
+      return (
+        <div>
+          <UserProfile />
+        </div>
+      );
+    } else return <div>Loading...</div>;
   }
 }
 

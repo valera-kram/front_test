@@ -1,34 +1,45 @@
+import "./Auth.css";
+
 import React from "react";
-// import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { signIn } from "../actions";
 
-import { validate } from "validate.js";
-
-import constraints from "../constraints";
+import {
+  FormWithConstraints,
+  FieldFeedbacks,
+  FieldFeedback,
+} from "react-form-with-constraints";
 
 class Auth extends React.Component {
-  //   renderInput = ({ input, label }) => {
-  //     return (
-  //       <div>
-  //         <label>{label}</label>
-  //         <input {...input} autoComplete="off" />
-  //       </div>
-  //     );
-  //   };
+  constructor(props) {
+    super(props);
 
-  state = { email: "example@gmail.com", password: "" };
+    this.state = { email: "", password: "" };
+  }
 
-  //   onPressSignIn = () => {
-  //     const validationResult = validate(this.state.data, constraints);
-  //     this.setState({ errors: validationResult });
-  //   };
+  handleChange = (e) => {
+    this.form.validateFields(e.target);
+  };
+
+  contactSubmit = (e) => {
+    e.preventDefault();
+
+    this.form.validateFields();
+
+    if (!this.form.isValid()) {
+      console.log("form is invalid: do not submit");
+    } else {
+      console.log("form is valid: submit");
+    }
+  };
 
   onEmailChange = (event) => {
+    this.form.validateFields(event.target);
     this.setState({ email: event.target.value });
   };
 
   onPasswordChange = (event) => {
+    this.form.validateFields(event.target);
     this.setState({ password: event.target.value });
   };
 
@@ -40,39 +51,43 @@ class Auth extends React.Component {
 
   render() {
     return (
-      <div>
-        <form className="ui form" onSubmit={this.onFormSubmit}>
-          {/* <Field
+      <FormWithConstraints
+        className="ui form"
+        ref={(form) => (this.form = form)}
+        onSubmit={this.onFormSubmit}
+      >
+        <div className="field">
+          <label>Email</label>
+          <input
+            type="email"
             name="email"
-            component={this.renderInput}
-            label="Enter email"
+            placeholder="email"
+            required
+            autoComplete="off"
+            onChange={this.onEmailChange}
           />
-          <Field
-            name="password"
-            component={this.renderInput}
-            label="Enter password"
-          /> */}
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="email"
-              onChange={this.onEmailChange}
-            />
-          </div>
+          <FieldFeedbacks for="email">
+            <FieldFeedback when="*" />
+          </FieldFeedbacks>
+
           <div className="field">
             <label>Password</label>
             <input
-              type="password"
               name="password"
+              type="password"
+              size="50"
               placeholder="password"
+              autoComplete="off"
+              required
               onChange={this.onPasswordChange}
             />
+            <FieldFeedbacks for="name">
+              <FieldFeedback when="*" />
+            </FieldFeedbacks>
           </div>
-          <button className="ui button primary">Sign In</button>
-        </form>
-      </div>
+        </div>
+        <button className="ui button primary">Sign In</button>
+      </FormWithConstraints>
     );
   }
 }
