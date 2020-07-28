@@ -51,25 +51,27 @@ class Auth extends React.Component {
 
   render() {
     return (
-      <FormWithConstraints
-        className="ui form"
-        ref={(form) => (this.form = form)}
-        onSubmit={this.onFormSubmit}
-      >
-        <div className="field">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            required
-            autoComplete="off"
-            onChange={this.onEmailChange}
-          />
-          <FieldFeedbacks for="email">
-            <FieldFeedback when="*" />
-          </FieldFeedbacks>
-
+      <div className="ui two column centered grid">
+        <FormWithConstraints
+          className="ui form"
+          ref={(form) => (this.form = form)}
+          onSubmit={this.onFormSubmit}
+        >
+          <div className="field">
+            <br />
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              required
+              autoComplete="off"
+              onChange={this.onEmailChange}
+            />
+            <FieldFeedbacks for="email">
+              <FieldFeedback when="*" />
+            </FieldFeedbacks>
+          </div>
           <div className="field">
             <label>Password</label>
             <input
@@ -85,9 +87,9 @@ class Auth extends React.Component {
               <FieldFeedback when="*" />
             </FieldFeedbacks>
           </div>
-        </div>
-        <button className="ui button primary">Sign In</button>
-      </FormWithConstraints>
+          <button className="ui button primary">Sign In</button>
+        </FormWithConstraints>
+      </div>
     );
   }
 }

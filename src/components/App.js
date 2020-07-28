@@ -10,9 +10,9 @@ class App extends React.Component {
   };
 
   render() {
-    if (!this.props.isSignedIn) {
+    if (!this.props.access_token) {
       return <div className="ui container">{this.renderAuth()}</div>;
-    } else if (this.props.isSignedIn) {
+    } else if (this.props.access_token) {
       return (
         <div>
           <UserProfile />
@@ -23,7 +23,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { isSignedIn: state.auth.isSignedIn };
+  return { access_token: state.auth.access_token };
 };
 
 export default connect(mapStateToProps)(App);

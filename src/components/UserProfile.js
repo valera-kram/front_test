@@ -34,7 +34,7 @@ class UserProfile extends React.Component {
     return (
       <div className="ui segment">
         <h1>Your profile!</h1>
-        <div className="ui content">{this.renderUserProfile()}</div>
+        <div className="ui two column grid">{this.renderUserProfile()}</div>
         <br />
         <button className="ui button primary" onClick={this.onSignOut}>
           Sign Out
