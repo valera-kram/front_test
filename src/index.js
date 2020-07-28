@@ -7,6 +7,8 @@ import reduxThunk from "redux-thunk";
 import App from "./components/App";
 import reducers from "./reducers";
 
+import ErrorSnackbar from "./components/ErrorSnackbar/ErrorSnackbar";
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
@@ -15,6 +17,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
+    <ErrorSnackbar />
     <App />
   </Provider>,
   document.querySelector("#root")
